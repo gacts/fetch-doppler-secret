@@ -2,6 +2,9 @@
 
 name: Fetch the secret from doppler.com
 description: This action allows receiving the secret from doppler.com
+branding:
+  icon: activity
+  color: yellow
 
 inputs:
   doppler-token:

@@ -1,13 +1,30 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+# Metadata syntax: <https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions>
+
+name: Fetch the secret from doppler.com
+description: This action allows receiving the secret from doppler.com
+
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  doppler-token:
+    description: Doppler service token # docs: <https://docs.doppler.com/docs/enclave-service-tokens>
     required: true
-    default: '1000'
+  doppler-project:
+    description: Doppler project name # docs: <https://docs.doppler.com/docs/enclave-project-setup>
+    required: true
+  doppler-config:
+    description: Doppler config (also known as "environment") # docs: <https://docs.doppler.com/docs/enclave-root-configs>
+    required: false
+    default: prd
+  secret-name:
+    description: Secret name
+    required: true
+  save-to-file:
+    description: Path to the file for storing the secret (in this case action output named "secret" will be empty)
+    required: false
+
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  secret:
+    description: Secret value
+
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: node12
+  main: dist/index.js

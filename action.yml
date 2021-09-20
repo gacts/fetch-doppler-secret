@@ -7,13 +7,13 @@ branding:
   color: yellow
 
 inputs:
-  doppler-token:
+  token:
     description: Doppler service token # docs: <https://docs.doppler.com/docs/enclave-service-tokens>
     required: true
-  doppler-project:
+  project:
     description: Doppler project name # docs: <https://docs.doppler.com/docs/enclave-project-setup>
     required: true
-  doppler-config:
+  config:
     description: Doppler config (also known as "environment") # docs: <https://docs.doppler.com/docs/enclave-root-configs>
     required: false
     default: prd

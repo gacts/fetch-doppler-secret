@@ -6,9 +6,9 @@ const fs = require('fs')
 
 // read action inputs
 const input = {
-  dopplerToken: core.getInput('doppler-token'),
-  dopplerProject: core.getInput('doppler-project'),
-  dopplerConfig: core.getInput('doppler-config'),
+  dopplerToken: core.getInput('token'),
+  dopplerProject: core.getInput('project'),
+  dopplerConfig: core.getInput('config'),
   secretName: core.getInput('secret-name'),
   saveToFile: core.getInput('save-to-file'),
 }

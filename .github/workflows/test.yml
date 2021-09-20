@@ -49,9 +49,9 @@ jobs:
       - uses: ./
         id: dev
         with:
-          doppler-token: ${{ secrets.DOPPLER_DEV_TOKEN }}
-          doppler-project: ${{ secrets.DOPPLER_PROJECT }}
-          doppler-config: ${{ secrets.DOPPLER_DEV_CONFIG }}
+          token: ${{ secrets.DOPPLER_DEV_TOKEN }}
+          project: ${{ secrets.DOPPLER_PROJECT }}
+          config: ${{ secrets.DOPPLER_DEV_CONFIG }}
           secret-name: DB_URL
 
       - run: if [[ '${{ steps.dev.outputs.secret }}' != 'psql://elon@localhost/modelX' ]]; then exit 1; fi
@@ -59,9 +59,9 @@ jobs:
       - uses: ./
         id: production
         with:
-          doppler-token: ${{ secrets.DOPPLER_PRODUCTION_TOKEN }}
-          doppler-project: ${{ secrets.DOPPLER_PROJECT }}
-          doppler-config: ${{ secrets.DOPPLER_PRODUCTION_CONFIG }}
+          token: ${{ secrets.DOPPLER_PRODUCTION_TOKEN }}
+          project: ${{ secrets.DOPPLER_PROJECT }}
+          config: ${{ secrets.DOPPLER_PRODUCTION_CONFIG }}
           secret-name: FEATURE_FLAGS
           save-to-file: secret_file
 

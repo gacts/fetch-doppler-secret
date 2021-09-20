@@ -8,7 +8,7 @@
 [![Build Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
-This GitHub action allows receiving the secrets from the [doppler.com][doppler].
+This GitHub action allows receiving the secrets from the [doppler.com][doppler]. Fetched secrets will be masked in the logs.
 
 ## Usage
 
@@ -20,9 +20,9 @@ jobs:
       - uses: gacts/fetch-doppler-secret@v1
         id: secret-value
         with:
-          doppler-token: ${{ secrets.doppler-token }}
-          doppler-project: ${{ secrets.doppler-project-name }}
-          doppler-config: ${{ secrets.doppler-config-name }}
+          token: ${{ secrets.doppler-service-token }} # docs: <https://docs.doppler.com/docs/enclave-service-tokens>
+          project: ${{ secrets.project-name }} # docs: <https://docs.doppler.com/docs/enclave-project-setup>
+          config: ${{ secrets.config-name }} # docs: <https://docs.doppler.com/docs/enclave-root-configs>
           secret-name: %secret-name%
 
       - run: echo "${{ steps.secret-value.outputs.secret }}"
@@ -30,9 +30,9 @@ jobs:
       - uses: gacts/fetch-doppler-secret@v1
         id: secret-file
         with:
-          doppler-token: ${{ secrets.doppler-token }}
-          doppler-project: ${{ secrets.doppler-project-name }}
-          doppler-config: ${{ secrets.doppler-config-name }}
+          token: ${{ secrets.doppler-service-token }}
+          project: ${{ secrets.project-name }}
+          config: ${{ secrets.config-name }}
           secret-name: %secret-name%
           save-to-file: file_with_secret
 
@@ -45,13 +45,13 @@ jobs:
 
 Following inputs can be used as `step.with` keys:
 
-Name              | Type   | Default | Required | Description
------------------ | :----: | :-----: | :------: | -----------
-`doppler-token`   | string |         | yes      | [Doppler service token](https://docs.doppler.com/docs/enclave-service-tokens)
-`doppler-project` | string |         | yes      | [Doppler project name](https://docs.doppler.com/docs/enclave-project-setup)
-`doppler-config`  | string | `prd`   | no       | [Doppler config](https://docs.doppler.com/docs/enclave-root-configs) (also known as "environment")
-`secret-name`     | string |         | yes      | Secret name
-`save-to-file`    | string |         | no       | Path to the file for storing the secret
+Name           | Type   | Default | Required | Description
+-------------- | :----: | :-----: | :------: | -----------
+`token`        | string |         | yes      | [Doppler service token](https://docs.doppler.com/docs/enclave-service-tokens)
+`project`      | string |         | yes      | [Doppler project name](https://docs.doppler.com/docs/enclave-project-setup)
+`config`       | string | `prd`   | no       | [Doppler config](https://docs.doppler.com/docs/enclave-root-configs) (also known as "environment")
+`secret-name`  | string |         | yes      | Secret name
+`save-to-file` | string |         | no       | Path to the file for storing the secret
 
 #### Outputs
 

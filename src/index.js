@@ -14,7 +14,11 @@ const input = {
 }
 
 // force the doppler token masking
-core.setSecret(input.dopplerToken)
+if (input.dopplerToken.length > 0) {
+  core.setSecret(input.dopplerToken)
+} else {
+  core.warning('Doppler token was not provided')
+}
 
 // main action entrypoint
 async function run() {

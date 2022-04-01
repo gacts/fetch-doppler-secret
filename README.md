@@ -45,19 +45,23 @@ jobs:
 
 Following inputs can be used as `step.with` keys:
 
-Name           | Type   | Default | Required | Description
--------------- | :----: | :-----: | :------: | -----------
-`token`        | string |         | yes      | [Doppler service token](https://docs.doppler.com/docs/enclave-service-tokens)
-`project`      | string |         | yes      | [Doppler project name](https://docs.doppler.com/docs/enclave-project-setup)
-`config`       | string | `prd`   | no       | [Doppler config](https://docs.doppler.com/docs/enclave-root-configs) (also known as "environment")
-`secret-name`  | string |         | yes      | Secret name
-`save-to-file` | string |         | no       | Path to the file for storing the secret
+| Name           |  Type  | Default | Required | Description                                                    |
+|----------------|:------:|:-------:|:--------:|----------------------------------------------------------------|
+| `token`        | string |         |   yes    | [Doppler service token][doppler-service-tokens]                |
+| `project`      | string |         |   yes    | [Doppler project name][doppler-project-name]                   |
+| `config`       | string |  `prd`  |    no    | [Doppler config][doppler-config] (also known as "environment") |
+| `secret-name`  | string |         |   yes    | Secret name                                                    |
+| `save-to-file` | string |         |    no    | Path to the file for storing the secret                        |
+
+[doppler-service-tokens]:https://docs.doppler.com/docs/enclave-service-tokens
+[doppler-project-name]:https://docs.doppler.com/docs/enclave-project-setup
+[doppler-config]:https://docs.doppler.com/docs/enclave-root-configs
 
 #### Outputs
 
-Name     | Type   | Description
--------- | ------ | -----------
-`secret` | String | Secret value
+| Name     | Type   | Description  |
+|----------|--------|--------------|
+| `secret` | String | Secret value |
 
 ## Releasing
 

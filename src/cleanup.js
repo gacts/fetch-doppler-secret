@@ -16,7 +16,7 @@ async function run() {
       })
     })
   } else {
-    core.info('Nothing to clean up')
+    core.debug('Nothing to clean up')
   }
 }
 

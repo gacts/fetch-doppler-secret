@@ -1,6 +1,6 @@
 const fs = require('fs')
 const core = require('@actions/core')
-const {httpClient, BasicCredentialHandler} = require('@actions/http-client')
+const {HttpClient, BasicCredentialHandler} = require('@actions/http-client')
 
 // read action inputs
 const input = {
@@ -21,7 +21,7 @@ if (input.dopplerToken.length > 0) {
 // main action entrypoint
 async function run() {
   // create http client instance (docs: <https://github.com/actions/http-client>)
-  const http = new httpClient.HttpClient(undefined, [new BasicCredentialHandler(input.dopplerToken, '')], {
+  const http = new HttpClient.HttpClient(undefined, [new BasicCredentialHandler(input.dopplerToken, '')], {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

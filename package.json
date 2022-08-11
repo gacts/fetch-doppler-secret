@@ -4,7 +4,9 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
-    "build": "ncc build src/index.js -o dist --source-map --minify --no-cache"
+    "build-index": "ncc build src/index.js -o dist/action --source-map --minify --no-cache",
+    "build-cleanup": "ncc build src/cleanup.js -o dist/cleanup --source-map --minify --no-cache",
+    "build": "yarn run build-index && yarn run build-cleanup"
   },
   "repository": {
     "type": "git",

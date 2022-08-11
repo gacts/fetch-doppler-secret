@@ -85,10 +85,13 @@ async function run() {
         fs.write(fd, Buffer.from(computed), 0, computed.length, null, (err) => {
           if (err) throw err
         })
+
+        // https://github.com/actions/toolkit/tree/main/packages/core#action-state
+        core.saveState('secret_file', input.saveToFile) // for the "post" action
       } finally {
         fs.close(fd, (err) => {
           if (err) throw err
-        });
+        })
       }
     })
   }

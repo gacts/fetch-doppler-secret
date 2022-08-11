@@ -1,20 +1,19 @@
-const core = require('@actions/core')
-const httpClient = require('@actions/http-client')
-const {BasicCredentialHandler} = require('@actions/http-client/auth')
-const querystring = require('querystring')
 const fs = require('fs')
+const core = require('@actions/core')
+const hc = require('@actions/http-client')
+const hcAuth = require('@actions/http-client/lib/auth')
 
 // read action inputs
 const input = {
-  dopplerToken: core.getInput('token'),
-  dopplerProject: core.getInput('project'),
+  dopplerToken: core.getInput('token', {required: true}),
+  dopplerProject: core.getInput('project', {required: true}),
   dopplerConfig: core.getInput('config'),
-  secretName: core.getInput('secret-name'),
+  secretName: core.getInput('secret-name', {required: true}),
   saveToFile: core.getInput('save-to-file'),
 }
 
 // force the doppler token masking
-if (input.dopplerToken.length > 0) {
+if (input.dopplerToken !== "") {
   core.setSecret(input.dopplerToken)
 } else {
   core.warning('Doppler token was not provided')
@@ -22,8 +21,8 @@ if (input.dopplerToken.length > 0) {
 
 // main action entrypoint
 async function run() {
-  // create http client instance (docs: <https://github.com/actions/http-client>)
-  const http = new httpClient.HttpClient(undefined, [new BasicCredentialHandler(input.dopplerToken, '')], {
+  // create http client instance (docs: <https://github.com/actions/toolkit/tree/main/packages/http-client>)
+  const http = new hc.HttpClient(undefined, [new hcAuth.BasicCredentialHandler(input.dopplerToken, '')], {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -32,11 +31,11 @@ async function run() {
 
   // make an http request to the doppler API
   const res = await http.get(
-    'https://api.doppler.com/v3/configs/config/secret?' + querystring.stringify({
+    'https://api.doppler.com/v3/configs/config/secret?' + (new URLSearchParams({
       project: input.dopplerProject,
       config: input.dopplerConfig,
       name: input.secretName,
-    })
+    }).toString())
   )
 
   // read and parse response content
@@ -86,18 +85,21 @@ async function run() {
         fs.write(fd, Buffer.from(computed), 0, computed.length, null, (err) => {
           if (err) throw err
         })
+
+        // https://github.com/actions/toolkit/tree/main/packages/core#action-state
+        core.saveState('secret_file', input.saveToFile) // for the "post" action
       } finally {
         fs.close(fd, (err) => {
           if (err) throw err
-        });
+        })
       }
     })
   }
 }
 
 // run the action
-try {
-  run()
-} catch (error) {
+(async () => {
+  await run()
+})().catch(error => {
   core.setFailed(error.message)
-}
+})

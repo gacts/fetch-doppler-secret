@@ -4,6 +4,18 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.2.0
+
+### Added
+
+- Action cleanup step, for removing secrets stored in files [#32]
+
+### Changed
+
+- Dependencies updated
+
+[#32]:https://github.com/gacts/fetch-doppler-secret/issues/32
+
 ## v1.1.0
 
 ### Changed

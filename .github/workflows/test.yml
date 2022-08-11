@@ -103,7 +103,8 @@ jobs:
 
       - run: if [[ '${{ steps.dev.outputs.secret }}' != 'psql://elon@localhost/modelX' ]]; then exit 1; fi
 
-      - uses: ./
+      - name: Run this action with a file
+        uses: ./
         id: production
         with:
           token: ${{ secrets.DOPPLER_PRODUCTION_TOKEN }}

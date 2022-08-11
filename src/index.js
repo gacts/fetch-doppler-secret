@@ -1,15 +1,13 @@
-const core = require('@actions/core')
-const httpClient = require('@actions/http-client')
-const {BasicCredentialHandler} = require('@actions/http-client/auth')
-const querystring = require('querystring')
 const fs = require('fs')
+const core = require('@actions/core')
+const {httpClient, BasicCredentialHandler} = require('@actions/http-client')
 
 // read action inputs
 const input = {
-  dopplerToken: core.getInput('token'),
-  dopplerProject: core.getInput('project'),
+  dopplerToken: core.getInput('token', {required: true}),
+  dopplerProject: core.getInput('project', {required: true}),
   dopplerConfig: core.getInput('config'),
-  secretName: core.getInput('secret-name'),
+  secretName: core.getInput('secret-name', {required: true}),
   saveToFile: core.getInput('save-to-file'),
 }
 
@@ -32,11 +30,11 @@ async function run() {
 
   // make an http request to the doppler API
   const res = await http.get(
-    'https://api.doppler.com/v3/configs/config/secret?' + querystring.stringify({
+    'https://api.doppler.com/v3/configs/config/secret?' + (new URLSearchParams({
       project: input.dopplerProject,
       config: input.dopplerConfig,
       name: input.secretName,
-    })
+    }).toString())
   )
 
   // read and parse response content
@@ -96,8 +94,8 @@ async function run() {
 }
 
 // run the action
-try {
-  run()
-} catch (error) {
+(async () => {
+  await run()
+})().catch(error => {
   core.setFailed(error.message)
-}
+})

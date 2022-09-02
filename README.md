@@ -79,7 +79,7 @@ Major and minor git tags (`v1` and `v1.2` if you publish `v1.2.Z` release) will 
 [![Issues][badge_issues]][link_issues]
 [![Issues][badge_pulls]][link_pulls]
 
-If you will find any package errors, please, [make an issue][link_create_issue] in the current repository.
+If you find any package errors, please, [make an issue][link_create_issue] in the current repository.
 
 ## License
 

@@ -26,7 +26,7 @@ outputs:
     description: Secret value
 
 runs:
-  using: node16
+  using: node20
   main: dist/action/index.js
   post: dist/cleanup/index.js
 

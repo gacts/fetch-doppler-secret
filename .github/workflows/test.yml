@@ -11,7 +11,7 @@ on:
 jobs:
   gitleaks:
     name: Gitleaks
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with: {fetch-depth: 0}
@@ -21,13 +21,13 @@ jobs:
 
   eslint:
     name: Run eslint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env: {FORCE_COLOR: 'true'}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
-        with: {node-version: '16'}
+        with: {node-version: '20'}
 
       - uses: actions/cache@v3
         id: yarn-cache
@@ -43,7 +43,7 @@ jobs:
 
   dist-built:
     name: Check distributive built state
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     outputs:
       dist-changed: ${{ steps.state.outputs.changed }}
     env: {FORCE_COLOR: 'true'}
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
-        with: {node-version: '16'}
+        with: {node-version: '20'}
 
       - uses: actions/cache@v3
         id: yarn-cache
@@ -75,7 +75,7 @@ jobs:
     name: Commit and push fresh distributive
     needs: [dist-built]
     if: ${{ needs.dist-built.outputs.dist-changed == 'true' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
@@ -91,7 +91,7 @@ jobs:
 
   run-this-action:
     name: Run action
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 

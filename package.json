@@ -3,7 +3,7 @@
   "description": "This GitHub action allows receiving the secrets from the doppler.com",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint --config package.json ./src/**/*.js",
+    "lint": "eslint --config package.json './src/**/*.js'",
     "build:index": "ncc build src/index.js -o dist/action --minify --no-cache",
     "build:cleanup": "ncc build src/cleanup.js -o dist/cleanup --minify --no-cache",
     "build": "npm run build:index && npm run build:cleanup"

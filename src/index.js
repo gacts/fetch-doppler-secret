@@ -29,7 +29,7 @@ async function run() {
     }
   })
 
-  // make an http request to the doppler API
+  // make a http request to the doppler API
   const res = await http.get(
     'https://api.doppler.com/v3/configs/config/secret?' + (new URLSearchParams({
       project: input.dopplerProject,
@@ -83,14 +83,18 @@ async function run() {
 
       try {
         fs.write(fd, Buffer.from(computed), 0, computed.length, null, (err) => {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
         })
 
         // https://github.com/actions/toolkit/tree/main/packages/core#action-state
         core.saveState('secret_file', input.saveToFile) // for the "post" action
       } finally {
         fs.close(fd, (err) => {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
         })
       }
     })
